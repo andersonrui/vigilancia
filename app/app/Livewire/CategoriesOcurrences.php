@@ -4,12 +4,12 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-use App\Models\Secretary;
+use App\Models\CategoryOcurrence;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
-class Secretaries extends Component
+class CategoriesOcurrences extends Component
 {
     use WithPagination;
 
@@ -18,9 +18,9 @@ class Secretaries extends Component
     public $edit_mode = false;  
     public $show_table = true;
 
-    public Secretary $secretary;
+    public CategoryOcurrence $categoryOcurrence;
 
-    public $secretary_id;
+    public $category_ocurrence_id;
 
     #[Validate('required|string')]
     public string $name = '';
@@ -46,20 +46,20 @@ class Secretaries extends Component
 
     public function render()
     {
-        return view('livewire.secretaries.index', [
-            'secretaries' => $this->secretaries()
+        return view('livewire.categories_ocurrences.index', [
+            'categoriesOcurrences' => $this->categoryOcurrences()
         ]);
     }
 
-    public function secretaries()
+    public function categoryOcurrences()
     {
-        $secretaries = Secretary::select('*')->orderBy($this->sortBy['column'], $this->sortBy['direction']);
+        $categoriesOcurrences = CategoryOcurrence::select('*')->orderBy($this->sortBy['column'], $this->sortBy['direction']);
 
         if ($this->searchInput != ""){
-            $secretaries = $secretaries->where('name', 'like', '%' . $this->searchInput . '%');
+            $categoriesOcurrences = $categoriesOcurrences->where('name', 'like', '%' . $this->searchInput . '%');
         }
 
-        return $secretaries->paginate($this->perPage);
+        return $categoriesOcurrences->paginate($this->perPage);
     }
 
     public function create()
@@ -68,7 +68,7 @@ class Secretaries extends Component
         $this->edit_mode = false;
         $this->show_table = false;
 
-        $this->secretary = new Secretary();
+        $this->categoryOcurrence = new CategoryOcurrence();
     }
 
     public function edit($id)
@@ -77,28 +77,28 @@ class Secretaries extends Component
         $this->edit_mode = true;
         $this->show_table = false;
 
-        $this->secretary = Secretary::find($id);
+        $this->categoryOcurrence = CategoryOcurrence::find($id);
 
-        $this->secretary_id = $this->secretary->id;
-        $this->name = $this->secretary->name;
+        $this->category_ocurrence_id = $this->categoryOcurrence->id;
+        $this->name = $this->categoryOcurrence->name;
     }
 
     public function save($method)
     {
         $this->validate();
 
-        $this->secretary->name = $this->name;
-        $this->secretary->active = $this->active;
+        $this->categoryOcurrence->name = $this->name;
+        $this->categoryOcurrence->active = $this->active;
         
-        $this->secretary->save();
+        $this->categoryOcurrence->save();
 
         $this->reset();
     }
 
     // public function reset()
     // {
-    //     $this->secretary = null;
-    //     $this->secretary_id = null;
+    //     $this->categoryOcurrence = null;
+    //     $this->category_ocurrence_id = null;
     //     $this->name = null;
     //     $this->active = TRUE;
     // }
@@ -116,9 +116,9 @@ class Secretaries extends Component
 
     public function toggle($id)
     {
-        $secretary = Secretary::find($id);
-        $secretary->toggleActive();
-        $this->secretaries();
+        $categoryOcurrence = CategoryOcurrence::find($id);
+        $categoryOcurrence->toggleActive();
+        $this->categoryOcurrences();
     }
 
     /**
@@ -130,7 +130,7 @@ class Secretaries extends Component
         $controlProperties = ['perPage', 'searchInput'];
 
         if (in_array($property, $controlProperties)){
-            $this->secretaries();
+            $this->categoryOcurrences();
         }
     }
 }
