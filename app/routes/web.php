@@ -21,4 +21,6 @@ Route::get('categoriesOcurrences', CategoriesOcurrences::class)->name('categorie
 
 Route::get('buildings', Buildings::class)->name('buildings');
 
+// Route::get('ocurrences', Buildings::class)->name('buildings');
+
 require __DIR__.'/auth.php';
