@@ -31,10 +31,12 @@
                         <x-mary-input label="Longitude" wire:model="longitude" />
                     </div>
                     <div class="col-start-1 col-end-3 mr-3">
-                        <x-mary-input label="Responsavel" wire:model="responsible" />
+                        <x-mary-select label="Responsavel" :options="$responsibles" wire:model="responsible"
+                            placeholder="Selecione um responsável..." />
                     </div>
                     <div class="col-start-3 col-end-5 mr-3">
-                        <x-mary-input label="Secretaria" wire:model="secretary_id" />
+                        <x-mary-select label="Secretaria" :options="$secretaries" wire:model="secretary_id"
+                            placeholder="Selecione uma secretaria..." />
                     </div>
                     <div class="columns-1 mt-7">
                         <x-mary-button class="btn-block btn-success" wire:click="save('update')">Salvar</x-mary-button>
@@ -46,7 +48,7 @@
             @if ($edit_mode)
                 <div class="grid grid-cols-12 place-content-end">
                     <div class="col-end-2">
-                        <x-mary-input label="ID" wire:model="secretary_id" readonly/>
+                        <x-mary-input label="ID" wire:model="secretary_id" readonly />
                     </div>
                     <div class="col-start-2 col-end-12 ml-3 mr-3">
                         <x-mary-input label="Nome" wire:model="name" />
@@ -101,8 +103,12 @@
                 </div>
                 <x-mary-table class="table-sm" :headers="$headers" :rows="$buildings" :sort-by="$sortBy" striped
                     with-pagination>
+                    @scope('cell_map', $building)
+                        <x-mary-button class="btn-sm" wire:click="viewMap({{ $building->id }})">Mapa</x-mary-button>
+                    @endscope
                     @scope('cell_actions', $building)
-                        <x-mary-button class="btn-warning text-bold btn-sm" icon="o-pencil" wire:click="edit({{$building->id}})">Editar
+                        <x-mary-button class="btn-warning text-bold btn-sm" icon="o-pencil"
+                            wire:click="edit({{ $building->id }})">Editar
                         </x-mary-button>
                         <x-mary-button class="{{ $building->active ? 'btn-error' : 'btn-success' }} text-bold btn-sm"
                             icon="o-arrows-right-left" wire:click="toggle({{ $building->id }})">
@@ -112,5 +118,11 @@
                 </x-mary-table>
             @endif
         </div>
+    </div>
+    <div class="h-96 relative w-2/6">
+        {{-- @if (isset($building->latitude)) --}}
+            <x-mapbox id="mapa" :center="['lat' => 0, 'long' => 0]" :zoom="15" />
+                {{-- :center="['lat' => $building->latitude, 'long' => $building->Longitude]" --}}
+        {{-- @endif --}}
     </div>
 </div>

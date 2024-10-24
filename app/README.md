@@ -6,8 +6,10 @@
 - [x] Secretarias
 - [x] Categorias de Ocorrências
 - [x] Imóveis
-- [ ] Ocorrências
+- [x] Ocorrências
 - [ ] Atualizações de ocorrência
+- Outros passos
+- [ ] Criar mensagens do sistema (interações como salvar/cancelar)
 - [ ] Criar todas as interações
-- [ ] Integrar a API do google maps
+- [ ] Integrar a API do google maps ou outro mapa
 - [ ] Integrar as ferramentas de acessibilidade

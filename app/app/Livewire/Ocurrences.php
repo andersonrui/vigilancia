@@ -4,14 +4,20 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
+use App\Models\Building;
+use App\Models\CategoryOcurrence;
 use App\Models\Ocurrence;
+use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Illuminate\Support\Collection;
+use Mary\Traits\Toast;
 
 class Ocurrences extends Component
 {
     use WithPagination;
+    use Toast;
 
     //Variáveis para controle do fluxo do formulário
     public $create_mode = false;
@@ -29,28 +35,32 @@ class Ocurrences extends Component
     public string $description = '';
 
     #[Validate('required|date')]
-    public string $start_date = '';
+    public $start_date;
 
-    #[Validate('required|date')]
-    public string $solution_date = '';
-
-    #[Validate('required|int')]
-    public string $categories_ocurrences_id;
+    #[Validate('nullable|date')]
+    public $solution_date;
 
     #[Validate('required|int')]
-    public string $ocurrences_id;
+    public int $categories_ocurrences_id;
+
+    public int $ocurrences_id;
 
     #[Validate('required|int')]
-    public string $users_id;
+    public int $users_id;
+
+    #[Validate('required|int')]
+    public int $buildings_id;
 
     public $headers = [
         ['key' => 'id', 'label' => '#', 'class' => 'w-1/5'],
         ['key' => 'title', 'label' => 'Título', 'class' => 'w-4/5', 'sortable' => true],
         ['key' => 'updated_at', 'label' => 'Atualização', 'class' => 'w-4/5', 'sortable' => true],
         ['key' => 'created_at', 'label' => 'Criação', 'class' => 'w-4/5', 'sortable' => true],
-        ['key' => 'buildings_id', 'label' => 'Imóvel', 'class' => 'w-4/5', 'sortable' => true]
+        ['key' => 'building.name', 'label' => 'Imóvel', 'class' => 'w-4/5', 'sortable' => false],
+        ['key' => 'categoryOcurrence.name', 'label' => 'Categoria', 'class' => 'w-4/5', 'sortable' => false],
+        ['key' => 'actions', 'label' => 'Ações', 'class' => 'w-4/5', 'sortable' => false]
     ];
-#
+
     public $pageSizes = [
         ['id' => 5, 'name' => 5],
         ['id' => 10, 'name' => 10],
@@ -60,18 +70,36 @@ class Ocurrences extends Component
 
     public $searchInput = "";
 
-    public array $sortBy = ['column' => 'name', 'direction' => 'asc'];
+    public array $sortBy = ['column' => 'updated_at', 'direction' => 'desc'];
+
+    public Collection $responsibles;
+
+    public Collection $buildings;
+
+    public Collection $categories_ocurrences;
 
     public function render()
     {
+
+        $this->responsibles = User::where('active', true)->orderBy('name', 'asc')->get();
+
+        $this->buildings = Building::where('active', true)->orderBy('name', 'asc')->get();
+
+        $this->categories_ocurrences = CategoryOcurrence::where('active', true)->orderBy('name', 'asc')->get();
+
         return view('livewire.ocurrences.index', [
-            'ocurrences' => $this->ocurrences()
+            'ocurrences' => $this->ocurrences(),
+            'responsibles' => $this->responsibles,
+            'categories_ocurrences' => $this->categories_ocurrences,
+            'buildings' => $this->buildings
         ]);
     }
 
     public function ocurrences()
     {
-        $ocurrences = Ocurrence::select('*')->orderBy($this->sortBy['column'], $this->sortBy['direction']);
+        $ocurrences = Ocurrence::select('*')
+            ->with(['responsible', 'categoryOcurrence', 'building'])
+            ->orderBy($this->sortBy['column'], $this->sortBy['direction']);
 
         if ($this->searchInput != ""){
             $ocurrences = $ocurrences->where('description', 'like', '%' . $this->searchInput . '%')
@@ -112,18 +140,40 @@ class Ocurrences extends Component
     public function save($method)
     {
         $this->validate();
+        
+        $toastMessage = [
+            'create' => 'O registro foi salvo com sucesso!',
+            'update' => 'O registro foi atualizado com sucesso!'
+        ];
 
         $this->ocurrence->title = $this->title;
         $this->ocurrence->description = $this->description;
         $this->ocurrence->start_date = $this->start_date;
-        $this->ocurrence->solution_date = $this->solution_date;
+
+        if(isset($this->solution_date)){
+            $this->ocurrence->solution_date = $this->solution_date;
+        }
+
         $this->ocurrence->categories_ocurrences_id = $this->categories_ocurrences_id;
         $this->ocurrence->buildings_id = $this->buildings_id;
         $this->ocurrence->users_id = $this->users_id;
         
-        $this->ocurrence->save();
-
-        $this->reset();
+        if($this->ocurrence->save()){
+            $this->success(
+                title:'Sucesso', 
+                description: $toastMessage[$method], 
+                position:'toast-top toast-end',
+                timeout:2000
+            );
+            $this->reset();
+        } else {
+            $this->error(
+                title:'Erro', 
+                description: 'Ocorreu um erro ao tentar salvar o registro.<br> Se o problema continuar, contacte o administrador do sistema.', 
+                position:'toast-top toast-end',
+                timeout:2000
+            );
+        }
     }
 
     // public function reset()
@@ -156,5 +206,20 @@ class Ocurrences extends Component
         if (in_array($property, $controlProperties)){
             $this->ocurrences();
         }
+    }
+
+    public function refreshResponsibles()
+    {
+        $this->responsibles = User::where('active', true)->orderBy('name', 'asc')->get();        
+    }
+
+    public function refreshBuildings()
+    {
+        $this->buildings = Building::where('active', true)->orderBy('name', 'asc')->get();        
+    }
+
+    public function refreshCategoriesOcurrences()
+    {
+        $this->categories_ocurrences = CategoryOcurrence::where('active', true)->orderBy('name', 'asc')->get();        
     }
 }

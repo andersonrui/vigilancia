@@ -13,7 +13,7 @@
                         <x-mary-input label="Nome" wire:model="name" />
                     </div>
                     <div class="columns-1 mt-7">
-                        <x-mary-button class="btn-block btn-success" wire:click="save('update')">Salvar</x-mary-button>
+                        <x-mary-button class="btn-block btn-success" wire:click="save('create')">Salvar</x-mary-button>
                     </div>
                 </div>
             @endif

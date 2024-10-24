@@ -8,10 +8,12 @@ use App\Models\CategoryOcurrence;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Mary\Traits\Toast;
 
 class CategoriesOcurrences extends Component
 {
     use WithPagination;
+    use Toast;
 
     //Variáveis para controle do fluxo do formulário
     public $create_mode = false;
@@ -87,12 +89,30 @@ class CategoriesOcurrences extends Component
     {
         $this->validate();
 
+        $toastMessage = [
+            'create' => 'O registro foi salvo com sucesso!',
+            'update' => 'O registro foi atualizado com sucesso!'
+        ];
+
         $this->categoryOcurrence->name = $this->name;
         $this->categoryOcurrence->active = $this->active;
         
-        $this->categoryOcurrence->save();
-
-        $this->reset();
+        if($this->categoryOcurrence->save()){
+            $this->success(
+                title:'Sucesso', 
+                description: $toastMessage[$method], 
+                position:'toast-top toast-end',
+                timeout:2000
+            );
+            $this->reset();
+        } else {
+            $this->error(
+                title:'Erro', 
+                description: 'Ocorreu um erro ao tentar salvar o registro.<br> Se o problema continuar, contacte o administrador do sistema.', 
+                position:'toast-top toast-end',
+                timeout:2000
+            );
+        }
     }
 
     // public function reset()

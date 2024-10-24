@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 class Ocurrence extends Model
 {
@@ -18,7 +20,7 @@ class Ocurrence extends Model
         'users_id'
     ];
 
-    public function user(): BelongsTo
+    public function responsible(): BelongsTo
     {
         return $this->belongsTo(User::class, 'users_id');
     }
@@ -38,5 +40,4 @@ class Ocurrence extends Model
         $this->active = !$this->active;
         $this->save();
     }
-
 }

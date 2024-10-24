@@ -8,10 +8,12 @@ use App\Models\Secretary;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Mary\Traits\Toast;
 
 class Secretaries extends Component
 {
     use WithPagination;
+    use Toast;
 
     //Variáveis para controle do fluxo do formulário
     public $create_mode = false;
@@ -85,14 +87,35 @@ class Secretaries extends Component
 
     public function save($method)
     {
+
+        $toastMessage = [
+            'create' => 'O registro foi salvo com sucesso!',
+            'update' => 'O registro foi atualizado com sucesso!'
+        ];
+
         $this->validate();
 
         $this->secretary->name = $this->name;
         $this->secretary->active = $this->active;
         
-        $this->secretary->save();
+        if($this->secretary->save()){
+            $this->success(
+                title:'Sucesso', 
+                description: $toastMessage[$method], 
+                position:'toast-top toast-end',
+                timeout:2000
+            );
+            $this->reset();
+        } else {
+            $this->error(
+                title:'Erro', 
+                description: 'Ocorreu um erro ao tentar salvar o registro.<br> Se o problema continuar, contacte o administrador do sistema.', 
+                position:'toast-top toast-end',
+                timeout:2000
+            );
+        }
 
-        $this->reset();
+        
     }
 
     // public function reset()
