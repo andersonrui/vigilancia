@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1a9325bb5fe8ed2ead598608f8fb311",
+    "content-hash": "fdfacc9a264fe9f4497af01a72f636e9",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1440,84 +1440,6 @@
                 }
             ],
             "time": "2023-05-21T07:57:08+00:00"
-        },
-        {
-            "name": "koossaayy/laravel-mapbox",
-            "version": "v0.4.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/koossaayy/laravel-mapbox.git",
-                "reference": "baa28eeb659fc097a1aebe2fb5aafc5122eefe73"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/koossaayy/laravel-mapbox/zipball/baa28eeb659fc097a1aebe2fb5aafc5122eefe73",
-                "reference": "baa28eeb659fc097a1aebe2fb5aafc5122eefe73",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^9.0|^10.0|^11.0",
-                "php": "^8.1|^8.2|^8.3",
-                "spatie/laravel-package-tools": "^1.14"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.4",
-                "nunomaduro/collision": "^7.0|^8.0",
-                "orchestra/testbench": "^8.0|^9.0",
-                "pestphp/pest": "^2.0",
-                "pestphp/pest-plugin-laravel": "^2.0",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^10.0",
-                "spatie/laravel-ray": "^1.26"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Koossaayy\\LaravelMapbox\\LaravelMapboxServiceProvider"
-                    ],
-                    "aliases": {
-                        "LaravelMapbox": "Koossaayy\\LaravelMapbox\\Facades\\LaravelMapbox"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Koossaayy\\LaravelMapbox\\": "src",
-                    "Koossaayy\\LaravelMapbox\\Database\\Factories\\": "database/factories"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "koossaayy",
-                    "email": "tounessna.2010@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Easily Integration of Mapbox inside your Laravel application",
-            "homepage": "https://github.com/koossaayy/laravel-mapbox",
-            "keywords": [
-                "koossaayy",
-                "laravel",
-                "laravel-mapbox"
-            ],
-            "support": {
-                "issues": "https://github.com/koossaayy/laravel-mapbox/issues",
-                "source": "https://github.com/koossaayy/laravel-mapbox/tree/v0.4.6"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/koossaayy",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-09-10T22:07:51+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3815,66 +3737,6 @@
                 }
             ],
             "time": "2024-10-17T19:06:18+00:00"
-        },
-        {
-            "name": "spatie/laravel-package-tools",
-            "version": "1.16.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "c7413972cf22ffdff97b68499c22baa04eddb6a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/c7413972cf22ffdff97b68499c22baa04eddb6a2",
-                "reference": "c7413972cf22ffdff97b68499c22baa04eddb6a2",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^9.28|^10.0|^11.0",
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.5",
-                "orchestra/testbench": "^7.7|^8.0",
-                "pestphp/pest": "^1.22",
-                "phpunit/phpunit": "^9.5.24",
-                "spatie/pest-plugin-test-time": "^1.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\LaravelPackageTools\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Tools for creating Laravel packages",
-            "homepage": "https://github.com/spatie/laravel-package-tools",
-            "keywords": [
-                "laravel-package-tools",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.16.5"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-08-27T18:56:10+00:00"
         },
         {
             "name": "symfony/clock",
@@ -9573,12 +9435,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

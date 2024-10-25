@@ -119,10 +119,19 @@
             @endif
         </div>
     </div>
-    <div class="h-96 relative w-2/6">
-        {{-- @if (isset($building->latitude)) --}}
-            <x-mapbox id="mapa" :center="['lat' => 0, 'long' => 0]" :zoom="15" />
-                {{-- :center="['lat' => $building->latitude, 'long' => $building->Longitude]" --}}
-        {{-- @endif --}}
-    </div>
+
+    {{-- <x-mary-modal wire:model="myModal1" class="backdrop-blur h-auto w-full">
+
+        <div class="h-96 relative w-2/3">
+            <livewire:map />
+        </div>
+        <x-mary-button label="Cancel" @click="$wire.myModal1 = false" />
+    </x-mary-modal> --}}
+    {{-- Right --}}
+    <x-mary-drawer wire:model="showDrawer2" class="w-11/12 lg:w-1/3" right>
+        <livewire:map />
+        <x-mary-button label="Close" @click="$wire.showDrawer2 = false" />
+    </x-mary-drawer>
+
+
 </div>

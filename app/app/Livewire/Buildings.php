@@ -87,6 +87,10 @@ class Buildings extends Component
 
     public $current;
 
+    public bool $myModal1;
+
+    public $showDrawer2 = false;
+
     public function render()
     {
 
@@ -234,5 +238,10 @@ class Buildings extends Component
     public function viewMap($id)
     {
         $this->building = Building::find($id);
+
+        $this->dispatch('refresh-map', ['latitude' => $this->building->latitude, 'longitude' => $this->building->longitude]);
+        // $this->myModal1 = true;
+
+        $this->showDrawer2 = true;
     }
 }

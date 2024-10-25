@@ -5,6 +5,7 @@ use App\Livewire\Secretaries;
 use App\Livewire\CategoriesOcurrences;
 use App\Livewire\Buildings;
 use App\Livewire\Ocurrences;
+use App\Livewire\Map;
 
 Route::view('/', 'welcome');
 
@@ -23,6 +24,8 @@ Route::get('secretaries', Secretaries::class)->name('secretaries');
 Route::get('categoriesOcurrences', CategoriesOcurrences::class)->name('categoriesOcurrences');
 
 Route::get('buildings', Buildings::class)->name('buildings');
+
+Route::get('map', Map::class)->name('map');
 
 // Route::get('ocurrences', Buildings::class)->name('buildings');
 
