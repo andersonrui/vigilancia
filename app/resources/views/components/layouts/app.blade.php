@@ -30,6 +30,7 @@
 
     <!-- Scripts -->
     @livewireStyles
+    {{-- @livewireScripts --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -51,7 +52,6 @@
             {{ $slot }}
         </main>
     </div>
-    @livewireScripts
     <x-mary-toast />
 </body>
 

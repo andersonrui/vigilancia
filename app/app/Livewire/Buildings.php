@@ -13,6 +13,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Collection;
 use Mary\Traits\Toast;
 use Koossaayy\LaravelMapbox\Components\Mapbox;
+use App\Livewire\LiveMap;
 
 class Buildings extends Component
 {
@@ -146,6 +147,8 @@ class Buildings extends Component
         $this->longitude = $this->building->longitude;
         $this->responsible = $this->building->responsible;
         $this->secretary_id = $this->building->secretary_id;
+
+        $this->dispatch('refreshMap', ['latitude'=> $this->latitude, 'longitude' => $this->longitude, 'title' => $this->name]);
     }
 
     public function save($method)
@@ -243,5 +246,24 @@ class Buildings extends Component
         // $this->myModal1 = true;
 
         $this->showDrawer2 = true;
+    }
+
+    // #[On('getCoordinates')]
+    // public function getCoordinates($id)
+    // {
+    //     $this->building = Building::find($id);
+
+    //     $this->latitude = $this->building->latitude;
+    //     $this->longitude = $this->building->longitude;
+        
+    // }
+
+    #[On('coordinates')]
+    public function setCoordinates($coordinates)
+    {
+        $this->latitude = $coordinates['lat'];
+        $this->longitude = $coordinates['lng'];
+
+        $this->dispatch('refresh-map', ['latitude' => $this->building->latitude, 'longitude' => $this->building->longitude]);
     }
 }

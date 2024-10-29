@@ -71,6 +71,10 @@
                     <div class="col-start-3 col-end-5 mr-3">
                         <x-mary-input label="Longitude" wire:model="longitude" />
                     </div>
+                    <div class="col-start-5 col-end-5">
+                        <x-mary-button class="mt-7"
+                            wire:click="getCoordinates({{ $building_id }})">Localizar</x-mary-button>
+                    </div>
                     <div class="col-start-1 col-end-3 mr-3">
                         <x-mary-input label="Responsavel" wire:model="responsible" />
                     </div>
@@ -80,6 +84,10 @@
                     <div class="columns-1 mt-7">
                         <x-mary-button class="btn-block btn-success" wire:click="save('update')">Salvar</x-mary-button>
                     </div>
+                    <div class="col-start-1 col-end-13 mt-7 h-96" id="mapDiv">
+
+                    </div>
+
                 </div>
             @endif
 
@@ -119,19 +127,95 @@
             @endif
         </div>
     </div>
-
-    {{-- <x-mary-modal wire:model="myModal1" class="backdrop-blur h-auto w-full">
-
-        <div class="h-96 relative w-2/3">
-            <livewire:map />
-        </div>
-        <x-mary-button label="Cancel" @click="$wire.myModal1 = false" />
-    </x-mary-modal> --}}
-    {{-- Right --}}
     <x-mary-drawer wire:model="showDrawer2" class="w-11/12 lg:w-1/3" right>
         <livewire:map />
-        <x-mary-button label="Close" @click="$wire.showDrawer2 = false" />
+        <x-mary-button label="Close" @click="$wire.showDrawer2 = false"></x-mary-button>
     </x-mary-drawer>
 
+    @script
+        <script>
+            (g => {
+                var h, a, k, p = 'The Google Maps JavaScript API',
+                    c = 'google',
+                    l = 'importLibrary',
+                    q = '__ib__',
+                    m = document,
+                    b = window;
+                b = b[c] || (b[c] = {});
+                var d = b.maps || (b.maps = {}),
+                    r = new Set,
+                    e = new URLSearchParams,
+                    u = () => h || (h = new Promise(async (f, n) => {
+                        await (a = m.createElement('script'));
+                        e.set('libraries', [...r] + '');
+                        for (k in g) e.set(k.replace(/[A-Z]/g, t => '_' + t[0].toLowerCase()), g[k]);
+                        e.set('callback', c + '.maps.' + q);
+                        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+                        d[q] = f;
+                        a.onerror = () => h = n(Error(p + ' could not load.'));
+                        a.nonce = m.querySelector('script[nonce]')?.nonce || '';
+                        m.head.append(a)
+                    }));
+                d[l] ? console.warn(p + ' only loads once. Ignoring:', g) : d[l] = (f, ...n) => r.add(f) && u().then(() =>
+                    d[l](f, ...n))
+            })({
+                key: 'AIzaSyDec4JQ5-Lmct9btLJS2C9Ny9aBPQmZ9yQ',
+                v: 'weekly',
+                // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+                // Add other bootstrap parameters as needed, using camel case.
+            });
 
+            let map;
+
+            async function initMap(longitude, latitude, title) {
+                // The location of Uluru
+                position = {
+                    lat: parseFloat(latitude),
+                    lng: parseFloat(longitude)
+                };
+                // Request needed libraries.
+                //@ts-ignore
+                const {
+                    Map
+                } = await google.maps.importLibrary("maps");
+                const {
+                    AdvancedMarkerElement, PinElement
+                } = await google.maps.importLibrary("marker");
+
+                // The map, centered at Uluru
+                map = new Map(document.getElementById("mapDiv"), {
+                    zoom: 18,
+                    center: position,
+                    mapId: "id_vig",
+                });
+
+                const pin = new PinElement({
+                    scale: 1.5
+                });
+
+                // The marker, positioned at Uluru
+                const marker = new AdvancedMarkerElement({
+                    map: map,
+                    content: pin.element,
+                    position: position,
+                    title: "Uluru",
+                    gmpDraggable: true,
+                    title: title,
+                });
+
+                
+
+                marker.addListener("dragend", (event) => {
+                    const position = marker.position;
+                    
+                    window.Livewire.dispatch('coordinates',[position]);
+                });
+
+            }
+
+            window.Livewire.on('refreshMap', function(data) {
+                initMap(data[0]['longitude'], data[0]['latitude'], data[0]['title']);
+            });
+        </script>
+    @endscript
 </div>
