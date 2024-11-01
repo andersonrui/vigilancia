@@ -23,6 +23,7 @@ class Ocurrences extends Component
     public $create_mode = false;
     public $edit_mode = false;  
     public $show_table = true;
+    public $view_mode = false;
 
     public Ocurrence $ocurrence;
 
@@ -114,6 +115,7 @@ class Ocurrences extends Component
         $this->create_mode = true;
         $this->edit_mode = false;
         $this->show_table = false;
+        $this->view_mode = false;
 
         $this->ocurrence = new Ocurrence();
     }
@@ -123,6 +125,7 @@ class Ocurrences extends Component
         $this->create_mode = false;
         $this->edit_mode = true;
         $this->show_table = false;
+        $this->view_mode = false;
 
         $this->ocurrence = Ocurrence::find($id);
 
@@ -135,6 +138,31 @@ class Ocurrences extends Component
         $this->buildings_id = $this->ocurrence->buildings_id;
         $this->users_id = $this->ocurrence->users_id;
         
+    }
+
+    public function view($id)
+    {
+        $this->create_mode = false;
+        $this->edit_mode = false;
+        $this->show_table = false;
+        $this->view_mode = true;
+
+        $this->ocurrence = Ocurrence::select('*')
+            ->with([
+                'followups' => function($q){
+                    return $q->with(['responsible']);
+                } 
+                ])
+            ->where(['id' => $id])->find($id);
+
+        $this->ocurrence_id = $this->ocurrence->id;
+        $this->title = $this->ocurrence->title;
+        $this->description = $this->ocurrence->description;
+        $this->start_date = $this->ocurrence->start_date;
+        $this->solution_date = $this->ocurrence->solution_date;
+        $this->categories_ocurrences_id = $this->ocurrence->categories_ocurrences_id;
+        $this->buildings_id = $this->ocurrence->buildings_id;
+        $this->users_id = $this->ocurrence->users_id;
     }
 
     public function save($method)

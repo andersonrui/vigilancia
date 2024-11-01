@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Carbon\Carbon;
 
 class Ocurrence extends Model
@@ -33,6 +35,11 @@ class Ocurrence extends Model
     public function building(): BelongsTo
     {
         return $this->belongsTo(Building::class, 'buildings_id');
+    }
+
+    public function followups(): HasMany
+    {
+        return $this->hasMany(OcurrenceUpdate::class, 'ocurrences_id', 'id');   
     }
 
     public function toggleActive()

@@ -54,7 +54,7 @@
                         <div class="col-start-1 col-end-10 border-2 border-zinc-600 mr-2 p-3">
                             <div class="grid grid-cols-12">
                                 <div class="mb-2 col-start-1 col-end-2">
-                                    <x-mary-input label="ID" wire:model="ocurrence_id" readonly/>
+                                    <x-mary-input label="ID" wire:model="ocurrence_id" readonly />
                                 </div>
                                 <div class="mb-2 col-start-2 col-end-13 ml-2">
                                     <x-mary-input label="Título" wire:model="title" />
@@ -118,11 +118,74 @@
                         {{ $ocurrence->updated_at->format('d/m/Y H:i:s') }}
                     @endscope
                     @scope('cell_actions', $ocurrence)
+                        <x-mary-button class="btn-accent text-bold btn-sm" icon="o-eye"
+                            wire:click="view({{ $ocurrence->id }})">Visualizar
+                        </x-mary-button>
                         <x-mary-button class="btn-warning text-bold btn-sm" icon="o-pencil"
                             wire:click="edit({{ $ocurrence->id }})">Editar
                         </x-mary-button>
                     @endscope
                 </x-mary-table>
+            @endif
+            <!-- Visualização -->
+            @if ($view_mode)
+                <div class="h-auto">
+                    <div class="grid grid-cols-12">
+                        <div class="col-start-1 col-end-10 border-2 border-zinc-600 mr-2 p-3">
+                            <div class="mb-2 col-start-2 col-end-13 ml-2">
+                                <x-mary-input label="Título" wire:model="title" readonly />
+                            </div>
+                            <div class="mb-2 col-start-1 col-end-13">
+                                <x-mary-textarea class="h-48" label="Descrição da ocorrência"
+                                    wire:model="description" readonly />
+                            </div>
+                            @foreach($ocurrence->followups as $followup)
+                                <div class="mb-2 col-start-1 col-end-13 border-2 rounded-box border-dashed border-green-950 bg-green-100 p-2">
+                                    <div class="col-start-1 col-end-13">
+                                        <small>Por: {{ $followup->responsible->name }} 
+                                            em {{ $followup->created_at->format('d/m/Y') }}
+                                            às {{ $followup->created_at->format('H:i:s') }}
+                                            @if($followup->updated_at)
+                                                | Editado em {{ $followup->updated_at->format('d/m/Y') }}
+                                                às {{ $followup->updated_at->format('H:i:s') }}
+                                            @endif
+                                        </small>
+                                    </div>
+                                    <div class="col-start-1 col-end-13">
+                                        <pre>{{ $followup->description }}</pre>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="col-start-10 col-end-13 border-2">
+                            <div class="grid grid-cols-12">
+                                <div class="mb-2 col-start-1 col-end-13">
+                                    <x-mary-input label="ID" wire:model="ocurrence_id" readonly />
+                                </div>
+                                <div class="col-start-1 col-end-13 mb-2">
+                                    <x-mary-input type="date" label="Data da ocorrência"
+                                        wire:model="start_date" readonly />
+                                </div>
+                                <div class="col-start-1 col-end-13 mb-2 ml-2">
+                                    <x-mary-select label="Responsável" :options="$responsibles" wire:model="users_id"
+                                        placeholder="Selecione um responsável..." readonly />
+                                </div>
+                                <div class="col-start-1 col-end-13 mb-2 ml-2">
+                                    <x-mary-select label="Imóvel" :options="$buildings" wire:model="buildings_id"
+                                        placeholder="Selecione um imóvel..." readonly />
+                                </div>
+                                <div class="col-start-1 col-end-13 mb-2 ml-2">
+                                    <x-mary-select label="Categoria" :options="$categories_ocurrences"
+                                        wire:model="categories_ocurrences_id" placeholder="Selecione um imóvel..." readonly />
+                                </div>
+                                <div class="mb-2 col-start-1 col-end-3">
+                                    <x-mary-button class="btn-warning" icon="o-pencil"
+                                        wire:click="edit('{{ $ocurrence_id }}')">Editar</x-mary-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
         </div>
     </div>

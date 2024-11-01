@@ -76,10 +76,12 @@
                             wire:click="getCoordinates({{ $building_id }})">Localizar</x-mary-button>
                     </div>
                     <div class="col-start-1 col-end-3 mr-3">
-                        <x-mary-input label="Responsavel" wire:model="responsible" />
+                        <x-mary-select label="Responsavel" :options="$responsibles" wire:model="responsible"
+                            placeholder="Selecione um responsável..." />
                     </div>
                     <div class="col-start-3 col-end-5 mr-3">
-                        <x-mary-input label="Secretaria" wire:model="secretary_id" />
+                        <x-mary-select label="Secretaria" :options="$secretaries" wire:model="secretary_id"
+                            placeholder="Selecione uma secretaria..." />
                     </div>
                     <div class="columns-1 mt-7">
                         <x-mary-button class="btn-block btn-success" wire:click="save('update')">Salvar</x-mary-button>
