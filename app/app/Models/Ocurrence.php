@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Carbon\Carbon;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+    
 class Ocurrence extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = [
         'description',
@@ -47,4 +50,10 @@ class Ocurrence extends Model
         $this->active = !$this->active;
         $this->save();
     }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logAll();
+    }
+
 }

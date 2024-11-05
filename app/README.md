@@ -7,9 +7,20 @@
 - [x] Categorias de Ocorrências
 - [x] Imóveis
 - [x] Ocorrências
-- [ ] Atualizações de ocorrência
+- [x] Atualizações de ocorrência
 - Outros passos
-- [ ] Criar mensagens do sistema (interações como salvar/cancelar)
-- [ ] Criar todas as interações
-- [ ] Integrar a API do google maps ou outro mapa
-- [ ] Integrar as ferramentas de acessibilidade
+- [x] Criar mensagens do sistema (interações como salvar/cancelar)
+- [x] Criar todas as interações
+- [x] Integrar a API do google maps ou outro mapa
+- [x] Integrar as ferramentas de acessibilidade
+- [x] Criar roles padrão (Admin/Vigilante/GCM)
+- [x] Atribuir todas as permissões para a role Admin
+- [ ] Criar gerenciamento de roles
+- [ ] Criar tela para inclusão/alteração de usuários
+- [ ] Permitir aos administradores resetar senha dos funcionários
+- [ ] Permitir aos administradores a troca da role do funcionário
+- [ ] Alterar formulário de login
+- [x] Remover a tela de boas-vinas
+- [x] Incluir logs de ações (logsactivity)
+- [ ] Criar tela para visualização de logs
+- [x] Criar usuário padrão e seeder
