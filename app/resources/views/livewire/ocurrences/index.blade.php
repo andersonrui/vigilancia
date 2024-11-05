@@ -131,7 +131,7 @@
             @if ($view_mode)
                 <div class="h-auto">
                     <div class="grid grid-cols-12">
-                        <div class="col-start-1 col-end-10 border-2 border-zinc-600 mr-2 p-3">
+                        <div class="col-start-1 col-end-10 border-2 border-zinc-200 mr-2 p-3">
                             <div class="mb-2 col-start-2 col-end-13 ml-2">
                                 <x-mary-input label="Título" wire:model="title" readonly />
                             </div>
@@ -140,7 +140,7 @@
                                     wire:model="description" readonly />
                             </div>
                             @foreach($ocurrence->followups as $followup)
-                                <div class="mb-2 col-start-1 col-end-13 border-2 rounded-box border-dashed border-green-950 bg-green-100 p-2">
+                                <div class="mb-2 col-start-1 col-end-13 border-2 rounded-box border-dashed bg-green-100 p-2 px-6 py-4">
                                     <div class="col-start-1 col-end-13">
                                         <small>Por: {{ $followup->responsible->name }} 
                                             em {{ $followup->created_at->format('d/m/Y') }}
@@ -156,6 +156,19 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @if($show_form_update)
+                                <div class="col-start-1 col-end-13">
+                                    <x-mary-textarea class="h-24" label="Novo acompanhamento" wire:model="update_description"/>
+                                </div>
+                                <div class="col-start-12 col-end-13">
+                                    <x-mary-button class="btn-success" icon="o-check" wire:click="saveUpdate('create')">Salvar</x-mary-button>
+                                </div>
+                            @endif
+                            @if(!$show_form_update)
+                                <div class="col-start-11 col-end-13">
+                                    <x-mary-button class="btn-accent" wire:click="newFollowUp('{{ $ocurrence_id }}')">Acompanhamento</x-mary-button>
+                                </div>  
+                            @endif
                         </div>
                         <div class="col-start-10 col-end-13 border-2">
                             <div class="grid grid-cols-12">

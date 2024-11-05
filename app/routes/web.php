@@ -9,14 +9,10 @@ use App\Livewire\Map;
 
 Route::view('/', 'welcome');
 
-Route::middleware(['auth'], function(){
-    Route::view('dashboard', 'dashboard')
-        ->middleware(['auth', 'verified'])
-        ->name('dashboard');
+Route::middleware(['auth'])->group( function(){
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 
-    Route::view('profile', 'profile')
-        ->middleware(['auth'])
-        ->name('profile');
+    Route::view('profile', 'profile')->name('profile');
 
     Route::get('ocurrences', Ocurrences::class)->name('ocurrences');
 
@@ -27,9 +23,6 @@ Route::middleware(['auth'], function(){
     Route::get('buildings', Buildings::class)->name('buildings');
 
     Route::get('map', Map::class)->name('map');
-
 });
-
-// Route::get('ocurrences', Buildings::class)->name('buildings');
 
 require __DIR__.'/auth.php';

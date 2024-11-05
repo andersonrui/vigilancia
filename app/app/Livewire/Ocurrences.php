@@ -13,6 +13,7 @@ use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Collection;
 use Mary\Traits\Toast;
+use App\Models\OcurrenceUpdate;
 
 class Ocurrences extends Component
 {
@@ -24,6 +25,7 @@ class Ocurrences extends Component
     public $edit_mode = false;  
     public $show_table = true;
     public $view_mode = false;
+    public $show_form_update = false;
 
     public Ocurrence $ocurrence;
 
@@ -51,6 +53,12 @@ class Ocurrences extends Component
 
     #[Validate('required|int')]
     public int $buildings_id;
+
+    public int $update_user_id;
+
+    public string $update_description;
+
+    public int $update_ocurrence_id;
 
     public $headers = [
         ['key' => 'id', 'label' => '#', 'class' => 'w-1/5'],
@@ -193,6 +201,48 @@ class Ocurrences extends Component
                 position:'toast-top toast-end',
                 timeout:2000
             );
+            $this->reset();
+        } else {
+            $this->error(
+                title:'Erro', 
+                description: 'Ocorreu um erro ao tentar salvar o registro.<br> Se o problema continuar, contacte o administrador do sistema.', 
+                position:'toast-top toast-end',
+                timeout:2000
+            );
+        }
+    }
+
+    public function newFollowUp($ocurrence_id)
+    {
+        $this->show_form_update = true;
+
+        $this->update_user_id = Auth()->user()->id;
+        $this->update_ocurrence_id = $this->ocurrence_id;
+    }
+
+    public function saveUpdate($method)
+    {
+        $followUp = new OcurrenceUpdate();
+
+        $followUp->description = $this->update_description;
+        $followUp->users_id = $this->update_user_id;
+        $followUp->ocurrences_id = $this->update_ocurrence_id;
+
+        $toastMessage = [
+            'create' => 'Acompanhamento registrado com sucesso!',
+            'update' => 'Acompanhamento atualizado com sucesso!'
+        ];
+
+        if($followUp->save())
+        {
+            $this->success(
+                title:'Sucesso', 
+                description: $toastMessage[$method], 
+                position:'toast-top toast-end',
+                timeout:2000
+            );
+            $this->ocurrence->updated_at = \Carbon\Carbon::now();
+            $this->ocurrence->save();
             $this->reset();
         } else {
             $this->error(
