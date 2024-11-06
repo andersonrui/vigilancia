@@ -54,4 +54,10 @@ class User extends Authenticatable
     {
         return LogOptions::defaults()->logAll();
     }
+
+    public function toggleActive()
+    {
+        $this->active = !$this->active;
+        $this->save();
+    }
 }

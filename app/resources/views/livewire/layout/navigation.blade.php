@@ -30,18 +30,36 @@ new class extends Component
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('ocurrences')" :active="request()->routeIs('ocurrences')" wire:navigate>
-                        {{ __('Ocorrências') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('secretaries')" :active="request()->routeIs('secretaries')" wire:navigate>
-                        {{ __('Secretarias') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('categoriesOcurrences')" :active="request()->routeIs('categoriesOcurrences')" wire:navigate>
-                        {{ __('Categorias') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('buildings')" :active="request()->routeIs('buildings')" wire:navigate>
-                        {{ __('Imóveis') }}
-                    </x-nav-link>
+                    @can('view_ocurrence')
+                        <x-nav-link :href="route('ocurrences')" :active="request()->routeIs('ocurrences')" wire:navigate>
+                            {{ __('Ocorrências') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view_secretary')
+                        <x-nav-link :href="route('secretaries')" :active="request()->routeIs('secretaries')" wire:navigate>
+                            {{ __('Secretarias') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view_ocurrence_category')
+                        <x-nav-link :href="route('categoriesOcurrences')" :active="request()->routeIs('categoriesOcurrences')" wire:navigate>
+                            {{ __('Categorias') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view_building')
+                        <x-nav-link :href="route('buildings')" :active="request()->routeIs('buildings')" wire:navigate>
+                            {{ __('Imóveis') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view_role')
+                        <x-nav-link :href="route('roles')" :active="request()->routeIs('roles')" wire:navigate>
+                            {{ __('Permissões') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view_user')
+                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')" wire:navigate>
+                            {{ __('Usuários') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -90,18 +108,36 @@ new class extends Component
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('ocurrences')" :active="request()->routeIs('ocurrences')" wire:navigate>
-                {{ __('Ocorrências') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('secretaries')" :active="request()->routeIs('secretaries')" wire:navigate>
-                {{ __('Secretarias') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('categoriesOcurrences')" :active="request()->routeIs('categoriesOcurrences')" wire:navigate>
-                {{ __('Categorias') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('buildings')" :active="request()->routeIs('buildings')" wire:navigate>
-                {{ __('Imóveis') }}
-            </x-responsive-nav-link>
+            @can('view_ocurrence')
+                <x-responsive-nav-link :href="route('ocurrences')" :active="request()->routeIs('ocurrences')" wire:navigate>
+                    {{ __('Ocorrências') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view_secretary')
+                <x-responsive-nav-link :href="route('secretaries')" :active="request()->routeIs('secretaries')" wire:navigate>
+                    {{ __('Secretarias') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view_ocurrence_category')
+                <x-responsive-nav-link :href="route('categoriesOcurrences')" :active="request()->routeIs('categoriesOcurrences')" wire:navigate>
+                    {{ __('Categorias') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view_building')
+                <x-responsive-nav-link :href="route('buildings')" :active="request()->routeIs('buildings')" wire:navigate>
+                    {{ __('Imóveis') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view_role')
+                <x-responsive-nav-link :href="route('roles')" :active="request()->routeIs('roles')" wire:navigate>
+                    {{ __('Permissões') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view_user')
+                <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')" wire:navigate>
+                    {{ __('Usuários') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

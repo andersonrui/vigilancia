@@ -7,89 +7,93 @@
     <div class="max-w-4/5 mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <!-- Formulário de criação -->
-            @if ($create_mode)
-                <div class="h-auto">
-                    <div class="grid grid-cols-12">
-                        <div class="col-start-1 col-end-10 border-2 border-zinc-600 mr-2 p-3">
-                            <div class="grid grid-cols-12">
-                                <div class="mb-2 col-start-1 col-end-13">
-                                    <x-mary-input label="Título" wire:model="title" />
-                                </div>
-                                <div class="col-start-1 col-end-3 mb-2">
-                                    <x-mary-input type="date" label="Data da ocorrência" wire:model="start_date" />
-                                </div>
-                                <div class="col-start-3 col-end-6 mb-2 ml-2">
-                                    <x-mary-select label="Responsável" :options="$responsibles" wire:model="users_id"
-                                        placeholder="Selecione um responsável..." />
-                                </div>
-                                <div class="col-start-6 col-end-10 mb-2 ml-2">
-                                    <x-mary-select label="Imóvel" :options="$buildings" wire:model="buildings_id"
-                                        placeholder="Selecione um imóvel..." />
-                                </div>
-                                <div class="col-start-10 col-end-13 mb-2 ml-2">
-                                    <x-mary-select label="Categoria" :options="$categories_ocurrences"
-                                        wire:model="categories_ocurrences_id" placeholder="Selecione um imóvel..." />
-                                </div>
-                                <div class="mb-2 col-start-1 col-end-13">
-                                    <x-mary-textarea class="h-48" label="Descrição da ocorrência"
-                                        wire:model="description" />
-                                </div>
-                                <div class="mb-2">
-                                    <x-mary-button class="btn-success"
-                                        wire:click="save('create')">Salvar</x-mary-button>
+            @can('create_ocurrence')
+                @if ($create_mode)
+                    <div class="h-auto">
+                        <div class="grid grid-cols-12">
+                            <div class="col-start-1 col-end-10 border-2 border-zinc-600 mr-2 p-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="mb-2 col-start-1 col-end-13">
+                                        <x-mary-input label="Título" wire:model="title" />
+                                    </div>
+                                    <div class="col-start-1 col-end-3 mb-2">
+                                        <x-mary-input type="date" label="Data da ocorrência" wire:model="start_date" />
+                                    </div>
+                                    <div class="col-start-3 col-end-6 mb-2 ml-2">
+                                        <x-mary-select label="Responsável" :options="$responsibles" wire:model="users_id"
+                                            placeholder="Selecione um responsável..." />
+                                    </div>
+                                    <div class="col-start-6 col-end-10 mb-2 ml-2">
+                                        <x-mary-select label="Imóvel" :options="$buildings" wire:model="buildings_id"
+                                            placeholder="Selecione um imóvel..." />
+                                    </div>
+                                    <div class="col-start-10 col-end-13 mb-2 ml-2">
+                                        <x-mary-select label="Categoria" :options="$categories_ocurrences"
+                                            wire:model="categories_ocurrences_id" placeholder="Selecione um imóvel..." />
+                                    </div>
+                                    <div class="mb-2 col-start-1 col-end-13">
+                                        <x-mary-textarea class="h-48" label="Descrição da ocorrência"
+                                            wire:model="description" />
+                                    </div>
+                                    <div class="mb-2">
+                                        <x-mary-button class="btn-success"
+                                            wire:click="save('create')">Salvar</x-mary-button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-start-10 col-end-13 border-2">
-                            B
+                            <div class="col-start-10 col-end-13 border-2">
+                                B
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            @endcan
 
             <!-- Formulário de edição -->
-            @if ($edit_mode)
-                <div class="h-auto">
-                    <div class="grid grid-cols-12">
-                        <div class="col-start-1 col-end-10 border-2 border-zinc-600 mr-2 p-3">
-                            <div class="grid grid-cols-12">
-                                <div class="mb-2 col-start-1 col-end-2">
-                                    <x-mary-input label="ID" wire:model="ocurrence_id" readonly />
-                                </div>
-                                <div class="mb-2 col-start-2 col-end-13 ml-2">
-                                    <x-mary-input label="Título" wire:model="title" />
-                                </div>
-                                <div class="col-start-1 col-end-3 mb-2">
-                                    <x-mary-input type="date" label="Data da ocorrência" wire:model="start_date" />
-                                </div>
-                                <div class="col-start-3 col-end-6 mb-2 ml-2">
-                                    <x-mary-select label="Responsável" :options="$responsibles" wire:model="users_id"
-                                        placeholder="Selecione um responsável..." />
-                                </div>
-                                <div class="col-start-6 col-end-10 mb-2 ml-2">
-                                    <x-mary-select label="Imóvel" :options="$buildings" wire:model="buildings_id"
-                                        placeholder="Selecione um imóvel..." />
-                                </div>
-                                <div class="col-start-10 col-end-13 mb-2 ml-2">
-                                    <x-mary-select label="Categoria" :options="$categories_ocurrences"
-                                        wire:model="categories_ocurrences_id" placeholder="Selecione um imóvel..." />
-                                </div>
-                                <div class="mb-2 col-start-1 col-end-13">
-                                    <x-mary-textarea class="h-48" label="Descrição da ocorrência"
-                                        wire:model="description" />
-                                </div>
-                                <div class="mb-2">
-                                    <x-mary-button class="btn-success"
-                                        wire:click="save('update')">Salvar</x-mary-button>
+            @can('edit_ocurrence')
+                @if ($edit_mode)
+                    <div class="h-auto">
+                        <div class="grid grid-cols-12">
+                            <div class="col-start-1 col-end-10 border-2 border-zinc-600 mr-2 p-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="mb-2 col-start-1 col-end-2">
+                                        <x-mary-input label="ID" wire:model="ocurrence_id" readonly />
+                                    </div>
+                                    <div class="mb-2 col-start-2 col-end-13 ml-2">
+                                        <x-mary-input label="Título" wire:model="title" />
+                                    </div>
+                                    <div class="col-start-1 col-end-3 mb-2">
+                                        <x-mary-input type="date" label="Data da ocorrência" wire:model="start_date" />
+                                    </div>
+                                    <div class="col-start-3 col-end-6 mb-2 ml-2">
+                                        <x-mary-select label="Responsável" :options="$responsibles" wire:model="users_id"
+                                            placeholder="Selecione um responsável..." />
+                                    </div>
+                                    <div class="col-start-6 col-end-10 mb-2 ml-2">
+                                        <x-mary-select label="Imóvel" :options="$buildings" wire:model="buildings_id"
+                                            placeholder="Selecione um imóvel..." />
+                                    </div>
+                                    <div class="col-start-10 col-end-13 mb-2 ml-2">
+                                        <x-mary-select label="Categoria" :options="$categories_ocurrences"
+                                            wire:model="categories_ocurrences_id" placeholder="Selecione um imóvel..." />
+                                    </div>
+                                    <div class="mb-2 col-start-1 col-end-13">
+                                        <x-mary-textarea class="h-48" label="Descrição da ocorrência"
+                                            wire:model="description" />
+                                    </div>
+                                    <div class="mb-2">
+                                        <x-mary-button class="btn-success"
+                                            wire:click="save('update')">Salvar</x-mary-button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-start-10 col-end-13 border-2">
-                            B
+                            <div class="col-start-10 col-end-13 border-2">
+                                B
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            @endcan
 
             <!-- Exibição da tabela -->
             @if ($show_table)
@@ -156,19 +160,21 @@
                                     </div>
                                 </div>
                             @endforeach
-                            @if($show_form_update)
-                                <div class="col-start-1 col-end-13">
-                                    <x-mary-textarea class="h-24" label="Novo acompanhamento" wire:model="update_description"/>
-                                </div>
-                                <div class="col-start-12 col-end-13">
-                                    <x-mary-button class="btn-success" icon="o-check" wire:click="saveUpdate('create')">Salvar</x-mary-button>
-                                </div>
-                            @endif
-                            @if(!$show_form_update)
-                                <div class="col-start-11 col-end-13">
-                                    <x-mary-button class="btn-accent" wire:click="newFollowUp('{{ $ocurrence_id }}')">Acompanhamento</x-mary-button>
-                                </div>  
-                            @endif
+                            @can('create_followup')
+                                @if($show_form_update)
+                                    <div class="col-start-1 col-end-13">
+                                        <x-mary-textarea class="h-24" label="Novo acompanhamento" wire:model="update_description"/>
+                                    </div>
+                                    <div class="col-start-12 col-end-13">
+                                        <x-mary-button class="btn-success" icon="o-check" wire:click="saveUpdate('create')">Salvar</x-mary-button>
+                                    </div>
+                                @endif
+                                @if(!$show_form_update)
+                                    <div class="col-start-11 col-end-13">
+                                        <x-mary-button class="btn-accent" wire:click="newFollowUp('{{ $ocurrence_id }}')">Acompanhamento</x-mary-button>
+                                    </div>  
+                                @endif
+                            @endcan
                         </div>
                         <div class="col-start-10 col-end-13 border-2">
                             <div class="grid grid-cols-12">
@@ -191,10 +197,12 @@
                                     <x-mary-select label="Categoria" :options="$categories_ocurrences"
                                         wire:model="categories_ocurrences_id" placeholder="Selecione um imóvel..." readonly />
                                 </div>
-                                <div class="mb-2 col-start-1 col-end-3">
-                                    <x-mary-button class="btn-warning" icon="o-pencil"
-                                        wire:click="edit('{{ $ocurrence_id }}')">Editar</x-mary-button>
-                                </div>
+                                @can('edit_ocurrence')
+                                    <div class="mb-2 col-start-1 col-end-3">
+                                        <x-mary-button class="btn-warning" icon="o-pencil"
+                                            wire:click="edit('{{ $ocurrence_id }}')">Editar</x-mary-button>
+                                    </div>
+                                @endcan
                             </div>
                         </div>
                     </div>

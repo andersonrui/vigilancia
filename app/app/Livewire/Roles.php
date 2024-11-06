@@ -154,7 +154,17 @@ class Roles extends Component
 
         $this->role = Role::with(['permissions'])->find($id);
 
-        $this->assignedPermissions = $this->role->permissions()->get();
+        $this->selectedPermissions = [];
+        
+        foreach($this->permissions()->toArray() as $permission)
+        {
+            $this->selectedPermissions[$permission['name']] = false;
+        }
+        
+        foreach($this->role->permissions()->get() as $modelPermission)
+        {
+            $this->selectedPermissions[$modelPermission->name] = true;
+        }
     }  
 
     public function create()
@@ -201,8 +211,18 @@ class Roles extends Component
 
     public function syncPermissions()
     {
-        dd($this->selectedPermissions);
-        if($this->role->syncPermissions($this->selectedPermissions))
+
+        $permissions = [];
+
+        foreach($this->selectedPermissions as $name => $selectedPermission)
+        {
+            if($selectedPermission)
+            {
+                array_push($permissions, $name);
+            }
+        }
+
+        if($this->role->syncPermissions($permissions))
         {
             $this->success(
                 title:'Sucesso', 

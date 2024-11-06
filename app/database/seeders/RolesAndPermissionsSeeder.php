@@ -13,7 +13,6 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-
         $roles = [
             ['name' => 'admin', 'guard_name' => 'web'],
             ['name' => 'vigilante', 'guard_name' => 'web'],
@@ -35,7 +34,14 @@ class RolesAndPermissionsSeeder extends Seeder
             ['name' => 'view_building', 'guard_name' => 'web'],
             ['name' => 'create_followup', 'guard_name' => 'web'],
             ['name' => 'edit_followup', 'guard_name' => 'web'],
-            ['name' => 'view_followup', 'guard_name' => 'web']
+            ['name' => 'view_followup', 'guard_name' => 'web'],
+            ['name' => 'create_role', 'guard_name' => 'web'],
+            ['name' => 'edit_role', 'guard_name' => 'web'],
+            ['name' => 'view_role', 'guard_name' => 'web'],
+            ['name' => 'create_user', 'guard_name' => 'web'],
+            ['name' => 'edit_user', 'guard_name' => 'web'],
+            ['name' => 'view_user', 'guard_name' => 'web'],
+            ['name' => 'change_passwords', 'guard_name' => 'web']            
         ];
 
         DB::table('roles')->insert($roles);

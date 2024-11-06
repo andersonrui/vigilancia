@@ -15,11 +15,11 @@
 - [x] Integrar as ferramentas de acessibilidade
 - [x] Criar roles padrão (Admin/Vigilante/GCM)
 - [x] Atribuir todas as permissões para a role Admin
-- [ ] Criar gerenciamento de roles
-- [ ] Criar tela para inclusão/alteração de usuários
-- [ ] Permitir aos administradores resetar senha dos funcionários
-- [ ] Permitir aos administradores a troca da role do funcionário
-- [ ] Alterar formulário de login
+- [x] Criar gerenciamento de roles
+- [x] Criar tela para inclusão/alteração de usuários
+- [x] Permitir aos administradores resetar senha dos funcionários
+- [x] Permitir aos administradores a troca da role do funcionário
+- [x] Alterar formulário de login
 - [x] Remover a tela de boas-vinas
 - [x] Incluir logs de ações (logsactivity)
 - [ ] Criar tela para visualização de logs
