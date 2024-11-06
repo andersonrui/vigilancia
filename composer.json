@@ -1,5 +1,12 @@
 {
     "require": {
         "spatie/laravel-permission": "^6.9"
-    }
+    },
+    "scripts": {
+        ...
+        "post-install-cmd": [
+            "chmod -R 755 bootstrap\/cache",
+            "php artisan cache:clear"
+        ]
+    },
 }
