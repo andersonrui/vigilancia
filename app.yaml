@@ -3,7 +3,6 @@ env: flex
 
 runtime_config: 
   document_root: "app/public"
-  runtime_version: ">8.3.*"
 
 # Ensure we skip ".env", which is only for local development
 skip_files: 
