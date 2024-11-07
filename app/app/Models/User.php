@@ -60,4 +60,5 @@ class User extends Authenticatable
         $this->active = !$this->active;
         $this->save();
     }
+
 }

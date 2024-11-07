@@ -127,6 +127,7 @@ class Buildings extends Component
         $this->show_table = false;
 
         $this->building = new Building();
+        $this->dispatch('refreshMap', ['latitude'=> -24.002147568824014, 'longitude' => -48.346501459918585, 'title' => "Novo"]);
     }
 
     public function edit($id)
@@ -261,9 +262,17 @@ class Buildings extends Component
     #[On('coordinates')]
     public function setCoordinates($coordinates)
     {
+        //dd($coordinates);
         $this->latitude = $coordinates['lat'];
         $this->longitude = $coordinates['lng'];
 
-        $this->dispatch('refresh-map', ['latitude' => $this->building->latitude, 'longitude' => $this->building->longitude]);
+        $this->dispatch('refresh-map', ['latitude' => $this->latitude, 'longitude' => $this->longitude]);
+    }
+
+    public function updatedLatitude()
+    {
+            dd($this->latitude);
+        
+        //$this->dispatch('refresh-map', ['latitude' => $this->latitude, 'longitude' => $this->longitude]);
     }
 }

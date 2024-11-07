@@ -8,6 +8,7 @@ use App\Livewire\Ocurrences;
 use App\Livewire\Map;
 use App\Livewire\Roles;
 use App\Livewire\Users;
+use App\Livewire\Logs;
 
 Route::middleware(['auth'])->group( function(){
     Route::view('profile', 'profile')->name('profile');
@@ -25,6 +26,8 @@ Route::middleware(['auth'])->group( function(){
     Route::get('roles', Roles::class)->middleware(['can:view_role'])->name('roles');
 
     Route::get('users', Users::class)->middleware(['can:view_user'])->name('users');
+
+    Route::get('logs', Logs::class)->middleware(['can:view_log'])->name('logs');
 });
 
 require __DIR__.'/auth.php';

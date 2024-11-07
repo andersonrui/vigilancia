@@ -61,13 +61,13 @@ class Ocurrences extends Component
     public int $update_ocurrence_id;
 
     public $headers = [
-        ['key' => 'id', 'label' => '#', 'class' => 'w-1/5'],
-        ['key' => 'title', 'label' => 'Título', 'class' => 'w-4/5', 'sortable' => true],
-        ['key' => 'updated_at', 'label' => 'Atualização', 'class' => 'w-4/5', 'sortable' => true],
-        ['key' => 'created_at', 'label' => 'Criação', 'class' => 'w-4/5', 'sortable' => true],
-        ['key' => 'building.name', 'label' => 'Imóvel', 'class' => 'w-4/5', 'sortable' => false],
-        ['key' => 'categoryOcurrence.name', 'label' => 'Categoria', 'class' => 'w-4/5', 'sortable' => false],
-        ['key' => 'actions', 'label' => 'Ações', 'class' => 'w-4/5', 'sortable' => false]
+        ['key' => 'id', 'label' => '#', 'class' => 'sm:w-1/5'],
+        ['key' => 'title', 'label' => 'Título', 'class' => 'sm:w-4/5', 'sortable' => true],
+        ['key' => 'updated_at', 'label' => 'Atualização', 'class' => 'sm:w-4/5', 'sortable' => true],
+        ['key' => 'created_at', 'label' => 'Criação', 'class' => 'sm:w-4/5', 'sortable' => true],
+        ['key' => 'building.name', 'label' => 'Imóvel', 'class' => 'sm:w-4/5', 'sortable' => false],
+        ['key' => 'categoryOcurrence.name', 'label' => 'Categoria', 'class' => 'sm:w-4/5', 'sortable' => false],
+        ['key' => 'actions', 'label' => 'Ações', 'class' => 'sm:w-4/5', 'sortable' => false]
     ];
 
     public $pageSizes = [

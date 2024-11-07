@@ -22,5 +22,6 @@
 - [x] Alterar formulário de login
 - [x] Remover a tela de boas-vinas
 - [x] Incluir logs de ações (logsactivity)
-- [ ] Criar tela para visualização de logs
+- [x] Criar tela para visualização de logs
 - [x] Criar usuário padrão e seeder
+- [ ] Tornar a interface completamente responsiva

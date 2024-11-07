@@ -26,10 +26,10 @@
                             <x-mary-input label="CEP" wire:model="postal_code" />
                         </div>
                         <div class="col-start-1 col-end-3 mr-3">
-                            <x-mary-input label="Latitude" wire:model="latitude" />
+                            <x-mary-input label="Latitude" wire:model.live="latitude" wire:change="test"/>
                         </div>
                         <div class="col-start-3 col-end-5 mr-3">
-                            <x-mary-input label="Longitude" wire:model="longitude" />
+                            <x-mary-input label="Longitude" wire:model.live="longitude" />
                         </div>
                         <div class="col-start-1 col-end-3 mr-3">
                             <x-mary-select label="Responsavel" :options="$responsibles" wire:model="responsible"
@@ -41,6 +41,9 @@
                         </div>
                         <div class="columns-1 mt-7">
                             <x-mary-button class="btn-block btn-success" wire:click="save('update')">Salvar</x-mary-button>
+                        </div>
+                        <div class="col-start-1 col-end-13 mt-7 h-96" id="mapDiv" wire:ignore>
+
                         </div>
                     </div>
                 @endif
@@ -74,10 +77,6 @@
                         <div class="col-start-3 col-end-5 mr-3">
                             <x-mary-input label="Longitude" wire:model="longitude" />
                         </div>
-                        <div class="col-start-5 col-end-5">
-                            <x-mary-button class="mt-7"
-                                wire:click="getCoordinates({{ $building_id }})">Localizar</x-mary-button>
-                        </div>
                         <div class="col-start-1 col-end-3 mr-3">
                             <x-mary-select label="Responsavel" :options="$responsibles" wire:model="responsible"
                                 placeholder="Selecione um responsável..." />
@@ -89,7 +88,7 @@
                         <div class="columns-1 mt-7">
                             <x-mary-button class="btn-block btn-success" wire:click="save('update')">Salvar</x-mary-button>
                         </div>
-                        <div class="col-start-1 col-end-13 mt-7 h-96" id="mapDiv">
+                        <div class="col-start-1 col-end-13 mt-7 h-96" id="mapDiv" wire:ignore>
 
                         </div>
 
@@ -211,14 +210,11 @@
                     title: "Uluru",
                     gmpDraggable: true,
                     title: title,
-                });
-
-                
+                });               
 
                 marker.addListener("dragend", (event) => {
-                    const position = marker.position;
-                    
-                    window.Livewire.dispatch('coordinates',[position]);
+                     const new_position = marker.position;
+                     window.Livewire.dispatch('coordinates',[new_position]);
                 });
 
             }
