@@ -41,7 +41,8 @@ class RolesAndPermissionsSeeder extends Seeder
             ['name' => 'create_user', 'guard_name' => 'web'],
             ['name' => 'edit_user', 'guard_name' => 'web'],
             ['name' => 'view_user', 'guard_name' => 'web'],
-            ['name' => 'change_passwords', 'guard_name' => 'web']            
+            ['name' => 'change_passwords', 'guard_name' => 'web'],        
+            ['name' => 'view_log', 'guard_name' => 'web']
         ];
 
         DB::table('roles')->insert($roles);
